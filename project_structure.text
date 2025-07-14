@@ -1,0 +1,45 @@
+- definition-apis.MD
+- frontend
+  - .gitignore
+  - next-env.d.ts
+  - next.config.js
+  - package-lock.json
+  - package.json
+  - postcss.config.js
+  - public
+    - file.svg
+    - globe.svg
+    - next.svg
+    - vercel.svg
+    - window.svg
+  - README.md
+  - src
+    - app
+      - favicon.ico
+      - globals.css
+      - layout.tsx
+      - page.tsx
+    - components
+      - layout
+        - Footer.tsx
+        - Header.tsx
+        - Layout.tsx
+      - products
+        - ProductCard.tsx
+        - ProductList.tsx
+      - ui
+        - Button.tsx
+        - Card.tsx
+        - Input.tsx
+    - hooks
+      - useCart.ts
+      - useProducts.ts
+    - interfaces
+      - cart.ts
+      - product.ts
+    - services
+      - api.ts
+      - cart.ts
+  - tailwind.config.js
+  - tsconfig.json
+- schema.sql
