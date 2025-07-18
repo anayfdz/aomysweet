@@ -1,11 +1,19 @@
+import React from 'react';
 import { Product } from "@/interfaces/product";
-
+import { useCartContext } from '@/context/CartContext';
+import toast from 'react-hot-toast';
 interface ProductCardProps {
   product: Product;
-  onAddToCart: (productId: number) => void;
+  //onAddToCart: (productId: number) => void;
 }
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const { addToCart } = useCartContext();
   const { name, price, description, rating } = product;
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    toast.success(`${name} agregado al carrito`);
+  };
 
   const renderStars = (rating?: { average: number; count: number }) => {
     if (!rating) return null;
@@ -29,7 +37,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
       {renderStars(rating)}
       <p className="text-pink-600 font-bold mt-2">{formattedPrice}</p>
       <button
-        onClick={() => onAddToCart(product.id)}
+        onClick={handleAddToCart}
         className="w-full bg-pink-600 text-white mt-4 py-2 rounded-full hover:bg-pink-700 transition-colors"
       >
         Agregar
