@@ -1,7 +1,10 @@
 import { ShoppingCartIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import { useCartContext } from "@/context/CartContext";
 
 const Header = () => {
+  const { cart } = useCartContext();
+  const itemCount = cart.items.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <header className="bg-pink-50">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
