@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useContext } from 'react';
 import { useCart } from '@/hooks/useCart';
 import { Cart } from '@/interfaces/cart';

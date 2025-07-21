@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductCard from '@/components/products/ProductCard';
 import { Product } from '@/interfaces/product';
+import FeaturedProducts from '@/components/FeaturedProducts';
 
 const featuredProducts: Product[] = [
   {
@@ -81,13 +82,7 @@ export default function Home() {
       <section>
         <h2 className="text-2xl font-semibold text-center mb-8">💖 Nuestros Favoritos</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredProducts.map(product => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={handleAddToCart}
-            />
-          ))}
+           <FeaturedProducts products={featuredProducts} />
         </div>
       </section>
     </div>

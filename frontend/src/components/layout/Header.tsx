@@ -1,3 +1,4 @@
+'use client';
 import { ShoppingCartIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
 import { useCartContext } from "@/context/CartContext";

@@ -1,10 +1,11 @@
+'use client';
 import React from 'react';
 import { Product } from "@/interfaces/product";
 import { useCartContext } from '@/context/CartContext';
 import toast from 'react-hot-toast';
 interface ProductCardProps {
   product: Product;
-  //onAddToCart: (productId: number) => void;
+  onAddToCart: (productId: number) => void;
 }
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCartContext();
