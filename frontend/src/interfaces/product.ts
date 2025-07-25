@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   description: string;
   price: number;
+  imageUrl: string;
   category: {
     id: number;
     name: string;
@@ -14,6 +15,7 @@ export interface Product {
     count: number;
   };
   isAvailable?: boolean;
+  quantity?: number;
   createdAt?: string;
   updatedAt?: string;
 }

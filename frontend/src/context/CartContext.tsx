@@ -1,11 +1,13 @@
 'use client';
 import React, { createContext, useContext } from 'react';
 import { useCart } from '@/hooks/useCart';
-import { Cart } from '@/interfaces/cart';
+import { Cart, CartItem } from '@/interfaces/cart';
 import { Product } from '@/interfaces/product';
 
-interface CartContextType {
+export interface CartContextType {
   cart: Cart;
+  items: CartItem[];
+  total: number;
   addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (productId: number) => void;
   updateQuantity: (productId: number, quantity: number) => void;
@@ -15,10 +17,16 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const cart = useCart();
+  const cartHook = useCart();
+
+  const value: CartContextType = {
+    ...cartHook,
+    items: cartHook.cart.items,
+    total: cartHook.cart.total
+  };
 
   return (
-    <CartContext.Provider value={cart}>
+    <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );
