@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
 import ProductCard from './ProductCard';
 import { Product } from '@/interfaces/product';
+import { getProducts, getProductsByCategory } from '@/services/products';
 
 interface ProductListProps {
   category?: string;
@@ -19,38 +19,11 @@ export default function ProductList({ category = 'all' }: ProductListProps) {
 
   const fetchProducts = async () => {
     try {
-      let query = supabase
-        .from('products')
-        .select(`
-          *,
-          category:categories(*),
-          ratings(*)
-        `);
-
-      if (category !== 'all') {
-        query = query.eq('category.id', category);
-      }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-
-      const productsWithRating = data.map(product => {
-        const ratings = product.ratings || [];
-        const averageRating = ratings.length > 0
-          ? ratings.reduce((acc: number, curr: { rating: number }) => acc + curr.rating, 0) / ratings.length
-          : 0;
-
-        return {
-          ...product,
-          rating: {
-            average: averageRating,
-            count: ratings.length
-          }
-        };
-      });
-
-      setProducts(productsWithRating);
+      setLoading(true);
+      const data = category === 'all' 
+        ? await getProducts()
+        : await getProductsByCategory(category);
+      setProducts(data);
     } catch (error) {
       console.error('Error fetching products:', error);
     } finally {
@@ -62,6 +35,14 @@ export default function ProductList({ category = 'all' }: ProductListProps) {
     return (
       <div className="flex justify-center items-center py-12">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500"></div>
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div className="text-center text-gray-500 py-12">
+        No hay productos disponibles en esta categoría
       </div>
     );
   }

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
 import ProductCard from './products/ProductCard';
 import { Product } from '@/interfaces/product';
+import { getFeaturedProducts } from '@/services/products';
 
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -15,34 +15,9 @@ export default function FeaturedProducts() {
 
   const fetchFeaturedProducts = async () => {
     try {
-      const { data, error } = await supabase
-        .from('products')
-        .select(`
-          *,
-          category:categories(*),
-          ratings(*)
-        `)
-        .eq('featured', true)
-        .limit(4);
-
-      if (error) throw error;
-
-      const productsWithRating = data.map(product => {
-        const ratings = product.ratings || [];
-        const averageRating = ratings.length > 0
-          ? ratings.reduce((acc: number, curr: { rating: number }) => acc + curr.rating, 0) / ratings.length
-          : 0;
-
-        return {
-          ...product,
-          rating: {
-            average: averageRating,
-            count: ratings.length
-          }
-        };
-      });
-
-      setProducts(productsWithRating);
+      setLoading(true);
+      const data = await getFeaturedProducts();
+      setProducts(data);
     } catch (error) {
       console.error('Error fetching featured products:', error);
     } finally {
