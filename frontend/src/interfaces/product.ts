@@ -3,19 +3,16 @@ export interface Product {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image_url: string;
+  featured: boolean;
+  is_available: boolean;
+  discount?: number;
+  category_id: number;
   category: {
     id: number;
     name: string;
   };
-  featured: boolean;
-  discount?: number;
-  rating?: {
-    average: number;
-    count: number;
-  };
-  isAvailable?: boolean;
+  created_at?: string;
+  updated_at?: string;
   quantity?: number;
-  createdAt?: string;
-  updatedAt?: string;
 }

@@ -14,7 +14,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [showDetails, setShowDetails] = useState(false);
   const { addToCart } = useCartContext();
-  const { id, name, price, description, rating, imageUrl } = product;
+  const { id, name, price, description, image_url } = product;
 
   const handleAddToCart = () => {
     addToCart({ ...product, quantity });
@@ -29,16 +29,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     }
   };
 
-  const renderStars = (rating?: { average: number; count: number }) => {
-    if (!rating) return null;
-    return (
-      <div className="flex items-center gap-1 text-yellow-400 text-xs">
-        {"⭐".repeat(Math.round(rating.average))}
-        <span className="text-gray-500 ml-1">({rating.count} reseñas)</span>
-      </div>
-    );
-  };
-
   const formattedPrice = new Intl.NumberFormat("es-CL", {
     style: "currency",
     currency: "CLP",
@@ -49,7 +39,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Imagen del producto */}
       <div className="relative aspect-square">
         <Image
-          src={imageUrl || '/placeholder.jpg'}
+          src={image_url}
           alt={name}
           fill
           className="object-cover"
@@ -66,7 +56,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       {/* Información del producto */}
       <div className="p-4">
         <h3 className="font-medium text-gray-900">{name}</h3>
-        {renderStars(rating)}
         <p className="text-pink-500 font-bold mt-1">{formattedPrice}</p>
         
         {/* Descripción expandible */}
@@ -108,7 +97,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <button
             onClick={() => {
               handleAddToCart();
-              // Redirigir al checkout
               window.location.href = '/checkout';
             }}
             className="w-full border border-pink-500 text-pink-500 py-2 rounded-full text-sm hover:bg-pink-50 transition-colors"
