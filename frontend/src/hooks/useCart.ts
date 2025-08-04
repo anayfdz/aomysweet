@@ -42,11 +42,13 @@ export const useCart = () => {
       } else {
         const newItem: CartItem = {
           id: Date.now(),
+          category_id: product.category_id,
           productId: product.id,
           name: product.name,
           description: product.description,
           price: product.price,
-          imageUrl: product.imageUrl,
+          image_url: product.image_url,
+          is_available: product.is_available,
           category: product.category,
           featured: product.featured,
           quantity,

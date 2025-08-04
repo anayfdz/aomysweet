@@ -134,7 +134,7 @@ const Header = () => {
       <div className="bg-pink-400 p-2 text-center text-white">
         <p className="text-sm flex items-center justify-center gap-2">
           <span role="img" aria-label="oferta">⚡</span>
-          ¡OFERTA ESPECIAL! 20% OFF en pedidos superiores a $50.000
+          ¡OFERTA ESPECIAL! 20% OFF en pedidos superiores a s/120
           <button className="ml-2 text-xs bg-white text-pink-600 px-2 py-1 rounded-full hover:bg-pink-100">
             ¡Aprovechar!
           </button>
